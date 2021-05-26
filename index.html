@@ -8,63 +8,36 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"
     ></script>
-
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+    <script src="index.js" type="text/javascript"></script>
   </head>
   <body>
-    <h1 data-bind="text: category"></h1>
-    <table>
-      <thead>
-        <tr>
-          <td>Id</td>
-          <td>Nome</td>
-          <td>Marca</td>
-          <td>Preço</td>
-          <td>Foto</td>
-        </tr>
-      </thead>
-
-      <tbody data-bind="foreach: products">
-        <tr>
-          <td data-bind="text: id"></td>
-          <td data-bind="text: name"></td>
-          <td data-bind="text: brand"></td>
-          <td data-bind="text: price"></td>
-          <td>
-            <img data-bind="attr: {src : photos}" width="256" height="256" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <script>
-      let productList = {
-        hostURL: "http://www.armazempb.com.br",
-        products: [],
-        category: "",
-      };
-
-      class ViewModel {
-        constructor(productList) {
-          this.category = ko.observable(productList.category);
-          this.products = ko.observableArray(productList.products);
-        }
-      }
-
-      fetch("data.json")
-        .then((response) => response.json())
-        .then((data) => {
-          productList.category = data.category.displayName;
-          for (let i = 0; i < data.items.length; i++) {
-            productList.products.push({
-              name: data.items[i].displayName,
-              id: data.items[i].id,
-              brand: data.items[i].brand,
-              price: data.items[i].salePrice ?? data.items[i].listPrice,
-              photos: productList.hostURL + data.items[i].mediumImageURLs[0],
-            });
-          }
-          ko.applyBindings(new ViewModel(productList));
-        });
-    </script>
+    <div>
+      <h1 class="title" data-bind="text: category"></h1>
+      <div class="cards" data-bind="foreach: products">
+        <div class="card">
+          <div>
+            <img class="picture" data-bind=" attr: {src: photo}" />
+            <p class="name" data-bind="text: name"></p>
+            <p class="brand" data-bind="text: brand"></p>
+          </div>
+          <div>
+            <p>
+              <span class="list-price" data-bind="if: isOnSale">
+                De: R$ <span data-bind="text: listPrice"></span> </span
+              ><br />
+              R$
+              <span class="curr-price" data-bind="text: currPrice"></span>
+            </p>
+            <a class="button" data-bind=" attr: {href: url}">VER PRODUTO</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
