@@ -4,9 +4,6 @@ body {
   background-color: #fafafa;
 }
 
-.title {
-}
-
 .cards {
   display: flex;
   flex-wrap: wrap;
@@ -26,6 +23,7 @@ body {
   justify-content: space-between;
   border-radius: 10px;
   padding: 10px;
+  background: #fff;
 }
 
 .card div {
