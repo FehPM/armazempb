@@ -11,9 +11,7 @@ class ViewModel {
   }
 }
 
-fetch(
-  "https://www.armazempb.com.br/ccstoreui/v1/products?totalResults=true&totalExpandedResults=true&catalogId=cloudCatalog&limit=60&offset=0&categoryId=eletrodomestico&includeChildren=true&storePriceListGroupId=reais"
-)
+fetch("data.json")
   .then((response) => response.json())
   .then((data) => {
     productList.category = data.category.displayName;
